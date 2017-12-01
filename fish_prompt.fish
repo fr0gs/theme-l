@@ -8,11 +8,13 @@ function _is_git_dirty
 end
 
 function fish_prompt
-  set -l blue (set_color blue)
-  set -l green (set_color green)
+  set -l blue (set_color -o blue)
+  set -l red (set_color -o red)
+  set -l green (set_color -o green)
   set -l normal (set_color normal)
+  set -l yellow (set_color -o yellow)
 
-  set -l arrow "λ"
+  set -l lambda $yellow(echo "λ")
   set -l cwd $blue(basename (prompt_pwd))
 
   if [ (_git_branch_name) ]
@@ -20,10 +22,10 @@ function fish_prompt
     set git_info ":$git_info"
 
     if [ (_is_git_dirty) ]
-      set -l dirty "*"
-      set git_info "$git_info$dirty"
+      set git_info $red(_git_branch_name)
+      set git_info ":$git_info*"
     end
   end
 
-  echo -n -s $cwd $git_info $normal ' ' $arrow ' '
+  echo -n -s $cwd $git_info $normal ' ' $lambda ' '
 end

@@ -8,7 +8,7 @@ function _is_git_dirty
 end
 
 function _is_git_staged
-  echo (command git diff --cached --no-ext-diff --exit-code ^/dev/null)
+  echo (command git diff --cached --no-ext-diff --quiet --exit-code ^/dev/null)
 end
 
 function _is_git_stashed
